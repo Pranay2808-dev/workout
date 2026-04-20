@@ -22,6 +22,17 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Ensure DB connection for API routes (Serverless compatibility)
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('API DB Connection Error:', error);
+    res.status(500).json({ success: false, message: 'Database connection failed' });
+  }
+});
+
 // API Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/plans', require('./routes/plans'));
@@ -43,13 +54,15 @@ app.get('*', (req, res) => {
   }
 });
 
-// Connect to DB then start server
-connectDB().then(() => {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
-}).catch(err => {
-  console.error('Failed to connect to DB:', err.message);
-  process.exit(1);
-});
+// Connect to DB then start server locally, but for Vercel, just export the app
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  connectDB().then(() => {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+  }).catch(err => {
+    console.error('Failed to connect to DB:', err.message);
+    process.exit(1);
+  });
+}
 
 module.exports = app;
