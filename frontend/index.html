@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitPlan | Your Fitness Journey</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme.js"></script>
+  <style>
+    body { margin: 0; display: flex; min-height: 100vh; overflow-x: hidden; }
+    .hero-side {
+      flex: 1;
+      background-color: var(--color-accent);
+      color: #FFF;
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .auth-side {
+      flex: 1;
+      background-color: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .hero-side h1 {
+      color: #FFF;
+      font-size: 4rem;
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-side p {
+      color: var(--color-accent-lt);
+      font-size: 1.2rem;
+      max-width: 450px;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+    }
+    .stat-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .auth-container {
+      width: 100%;
+      max-width: 400px;
+    }
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      transition: all 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    .auth-tab.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+    .auth-form {
+      display: none;
+    }
+    .auth-form.active {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .hero-side { padding: 3rem 2rem; }
+      .hero-side h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-side">
+    <div class="logo-text" style="font-size: 2rem; font-family: 'DM Serif Display', serif; margin-bottom: 4rem;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+        <path d="M17.5 4.5c-2.5 0-4.5 2-4.5 4.5v1H9V9c0-2.5-2-4.5-4.5-4.5S0 6.5 0 9c0 3.5 4 8 11.5 14.5l.5.5.5-.5C20 17 24 12.5 24 9c0-2.5-2-4.5-4.5-4.5zM12 21.5C5.5 15.5 2 11.5 2 9c0-1.5 1-2.5 2.5-2.5S7 7.5 7 9v3h10V9c0-1.5 1-2.5 2.5-2.5S22 7.5 22 9c0 2.5-3.5 6.5-10 12.5z"/>
+      </svg>
+      FitPlan
+    </div>
+    <h1>Train smarter. Log everything. Get stronger.</h1>
+    <p>Your premium digital training journal. Build custom routines, track progress, and reach your goals.</p>
+    <div class="stat-pills">
+      <div class="stat-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        30+ exercises
+      </div>
+      <div class="stat-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        Track reps & sets
+      </div>
+      <div class="stat-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
+        Progress charts
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-side">
+    <div class="auth-container">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-target="login">Sign In</div>
+        <div class="auth-tab" data-target="register">Create Account</div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form active">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="form-group" style="display:flex; align-items:center; gap:0.5rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
+          <input type="checkbox" id="remember">
+          <label for="remember" style="margin:0; font-size: 0.9rem; font-weight: normal; text-transform:none;">Remember me</label>
+        </div>
+        <div id="login-error" class="error-message mb-2"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Sign In</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control" minlength="6" required>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Goal</label>
+            <select name="fitnessGoal" class="form-control">
+              <option value="general">General Fitness</option>
+              <option value="weight_loss">Weight Loss</option>
+              <option value="muscle_gain">Muscle Gain</option>
+              <option value="endurance">Endurance</option>
+              <option value="flexibility">Flexibility</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Level</label>
+            <select name="fitnessLevel" class="form-control">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+        </div>
+        <div id="register-error" class="error-message mb-2"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tab switching
+      const tabs = document.querySelectorAll('.auth-tab');
+      const forms = document.querySelectorAll('.auth-form');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          forms.forEach(f => f.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(`${tab.dataset.target}-form`).classList.add('active');
+        });
+      });
+
+      const setLoading = (formId, isLoading) => {
+        const btn = document.querySelector(`#${formId} button`);
+        if (isLoading) {
+          btn.disabled = true;
+          btn.innerHTML = '<span class="spinner"></span>';
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = formId === 'login-form' ? 'Sign In' : 'Create Account';
+        }
+      };
+
+      // Login handler
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errorEl = document.getElementById('login-error');
+        errorEl.textContent = '';
+        setLoading('login-form', true);
+
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const res = await window.api.post('/auth/login', data);
+        setLoading('login-form', false);
+
+        if (res && res.success) {
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          window.location.href = '/dashboard.html';
+        } else {
+          errorEl.textContent = res ? res.error : 'An error occurred';
+        }
+      });
+
+      // Register handler
+      document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errorEl = document.getElementById('register-error');
+        errorEl.textContent = '';
+        setLoading('register-form', true);
+
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        const res = await window.api.post('/auth/register', data);
+        setLoading('register-form', false);
+
+        if (res && res.success) {
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          window.location.href = '/dashboard.html';
+        } else {
+          errorEl.textContent = res ? res.error : 'An error occurred';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
