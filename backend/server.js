@@ -29,7 +29,7 @@ app.use('/api', async (req, res, next) => {
     next();
   } catch (error) {
     console.error('API DB Connection Error:', error);
-    res.status(500).json({ success: false, message: 'Database connection failed' });
+    res.status(500).json({ success: false, error: 'Database connection failed. Please check your network or DB configuration.' });
   }
 });
 

@@ -19,7 +19,7 @@ async function apiFetch(endpoint, options = {}) {
       headers
     });
 
-    if (res.status === 401) {
+    if (res.status === 401 && !endpoint.startsWith('/auth/')) {
       // Unauthorized, clear token and redirect to login
       localStorage.removeItem('token');
       localStorage.removeItem('user');
