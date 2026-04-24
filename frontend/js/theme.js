@@ -21,14 +21,14 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Define available colors
   const colors = [
     { name: 'Green', rgb: '45, 90, 61' },
     { name: 'Orange', rgb: '234, 88, 12' },
     { name: 'Blue', rgb: '37, 99, 235' },
     { name: 'Violet', rgb: '124, 58, 237' },
     { name: 'Purple', rgb: '147, 51, 234' },
-    { name: 'Pink', rgb: '219, 39, 119' }
+    { name: 'Pink', rgb: '219, 39, 119' },
+    { name: 'Black', rgb: '0, 0, 0' }
   ];
 
   // Inject the Theme Switcher Widget HTML
