@@ -74,7 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
       card.addEventListener('click', () => {
         dom.ui.typeSelection.forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
-        state.plan.type = card.dataset.val;
+        const newType = card.dataset.val;
+        if (state.plan.type !== newType) {
+          state.plan.type = newType;
+          state.plan.exercises = []; // Clear exercises to trigger auto-reselection
+        }
       });
       if (card.dataset.val === state.plan.type) card.classList.add('selected');
     });
@@ -122,6 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
       state.plan.name = dom.inputs.name.value;
       state.plan.description = dom.inputs.desc.value;
       state.plan.goal = dom.inputs.goal.value;
+      
+      autoSelectExercises();
+      
       goToStep(2);
     });
 
@@ -171,6 +178,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- STEP 2 LOGIC (Exercises) ---
+
+  function autoSelectExercises() {
+    if (state.plan.exercises.length > 0) return;
+    if (state.library.length === 0) return;
+
+    const type = state.plan.type;
+    let selected = [];
+
+    if (type === 'mixed') {
+      const strength = state.library.filter(ex => ex.type === 'strength').slice(0, 2);
+      const cardio = state.library.filter(ex => ex.type === 'cardio').slice(0, 1);
+      const hiit = state.library.filter(ex => ex.type === 'hiit').slice(0, 1);
+      selected = [...strength, ...cardio, ...hiit];
+    } else {
+      selected = state.library.filter(ex => ex.type === type).slice(0, 4);
+    }
+
+    selected.forEach(ex => addExerciseToPlan(ex));
+  }
 
   function renderLibrary(filter = '') {
     dom.ui.libraryList.innerHTML = '';
