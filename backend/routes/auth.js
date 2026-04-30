@@ -110,7 +110,7 @@ router.get('/me', authMiddleware, async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
-});
+});      
 
 // PUT /api/auth/profile
 router.put('/profile', authMiddleware, async (req, res) => {
