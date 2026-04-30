@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Create color palette buttons
   const colorsContainer = document.createElement('div');
+  colorsContainer.className = 'theme-colors-container';
   colorsContainer.style.display = 'flex';
   colorsContainer.style.gap = '0.35rem';
   colorsContainer.style.borderLeft = '1px solid var(--color-border)';
