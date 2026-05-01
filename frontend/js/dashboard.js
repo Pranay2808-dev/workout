@@ -39,10 +39,10 @@ function renderWeeklyChart(weeklyVolume) {
   }
 
   // Find max value to scale bars relative to max height
-  const maxMins = Math.max(...weeklyVolume.map(d => d.minutes), 60); // min scale is 60m
+  const maxMins = Math.max(...weeklyVolume.map(d => d.minutes), 30); // min scale is 30m
 
   weeklyVolume.forEach(dayData => {
-    const heightPercent = Math.min(100, Math.max(5, (dayData.minutes / maxMins) * 100));
+    const heightPercent = dayData.minutes > 0 ? Math.min(100, Math.max(5, (dayData.minutes / maxMins) * 100)) : 0;
     
     const colEl = document.createElement('div');
     colEl.className = 'bar-col';
